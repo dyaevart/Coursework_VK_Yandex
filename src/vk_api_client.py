@@ -2,7 +2,7 @@ import requests
 import os
 from urllib.parse import urlparse
 from pprint import pprint
-from src.global_vars import GlobalVars
+from global_vars import GlobalVars
 
 
 class VKAPIClient:

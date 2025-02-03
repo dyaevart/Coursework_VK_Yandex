@@ -1,6 +1,6 @@
 import requests
 from pprint import pprint
-from src.global_vars import GlobalVars
+from global_vars import GlobalVars
 
 
 class YandexDiskAPIClient:

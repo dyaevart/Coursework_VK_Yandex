@@ -4,6 +4,8 @@ from vk_api_client import VKAPIClient
 from yandex_disk_api_client import YandexDiskAPIClient
 
 
+GlobalVars.initialize()
+
 vk_client = VKAPIClient(GlobalVars.VK_TOKEN, GlobalVars.VK_USER_ID)
 yandex_client = YandexDiskAPIClient(GlobalVars.YANDEX_TOKEN)
 
