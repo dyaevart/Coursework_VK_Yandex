@@ -3,6 +3,7 @@ import os
 from urllib.parse import urlparse
 from pprint import pprint
 from global_vars import GlobalVars
+from tqdm import tqdm
 
 
 class VKAPIClient:
@@ -27,7 +28,7 @@ class VKAPIClient:
         response = requests.get(self._build_url("photos.get"), params=params).json()
 
         photos_list = []
-        for item in response["response"]["items"]:
+        for item in tqdm(response["response"]["items"], desc="Creating photos list ..."):
             photos_list.append({
                 "id": item["id"],
                 "likes": item["likes"]["count"],
@@ -38,7 +39,7 @@ class VKAPIClient:
 
     def download_photos(self, photo_data):
         files_names=[]
-        for photo in photo_data:
+        for photo in tqdm(photo_data, desc="Downloading photos from VK ..."):
             response = requests.get(photo["url"])
             filename = str(photo["id"]) + "_" + str(photo["likes"]) + photo["extension"]
             with open(filename, "wb") as f:

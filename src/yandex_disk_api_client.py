@@ -1,7 +1,7 @@
 import requests
 from pprint import pprint
 from global_vars import GlobalVars
-
+from tqdm import tqdm
 
 class YandexDiskAPIClient:
 
@@ -23,7 +23,7 @@ class YandexDiskAPIClient:
     def upload_files(self, target_folder, files_names):
         files_hrefs = []
 
-        for file_name in files_names:
+        for file_name in tqdm(files_names, desc="Uploading photos to Yandex Disk ..."):
             params = {"path": f"{target_folder}/{file_name}"}
             response = requests.get(self._build_url("resources/upload"), params=params, headers=self.get_common_headers())
             file_href = response.json()["href"]
