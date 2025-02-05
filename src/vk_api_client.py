@@ -1,10 +1,8 @@
 import requests
 import os
 from urllib.parse import urlparse
-from pprint import pprint
 from global_vars import GlobalVars
 from tqdm import tqdm
-
 
 class VKAPIClient:
 
@@ -22,7 +20,7 @@ class VKAPIClient:
         return f"{GlobalVars.VK_BASE_URL}/{api_method}"
 
 
-    def get_photos_data(self, photo_type):
+    def get_photos_data(self, photo_type, photo_count):
         params = self.get_common_params()
         params.update({"owner_id": self.user_id, "album_id": photo_type, "extended": 1})
         response = requests.get(self._build_url("photos.get"), params=params).json()
@@ -35,7 +33,7 @@ class VKAPIClient:
                 "url": item["sizes"][-1]["url"],
                 "extension": os.path.splitext(urlparse(item["sizes"][-1]["url"]).path)[1]
                 })
-        return photos_list
+        return photos_list[:photo_count]
 
     def download_photos(self, photo_data):
         files_names=[]
